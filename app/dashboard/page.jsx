@@ -1,31 +1,18 @@
-'use client'
-import React, { useState } from 'react';
-import { Box } from '@mui/material';
-import CarList, { Car } from '@/components/CarsList';
-import CarDetails from '@/components/CarDetails';
-import ProtectedRoute from '@/components/ProtectedRoute';
 
-const carList = [
-  { id: 1, title: 'داشبورد ' },
-  { id: 2, title: 'خودروها' },
-  { id: 3, title: 'نقشه ' },
-];
+"use client";
 
-const CarStatusPage = () => {
-  const [selectedCar, setSelectedCar] = useState(carList[0]);
+import Layout from "@/components/layout";
+import { Box, Typography } from "@mui/material";
 
-  return (
-    <ProtectedRoute>
-      <Box sx={{ display: 'flex', height: '100vh', width: '100%' }}>
-        <CarList
-          cars={carList}
-          selectedCarId={selectedCar.id}
-          onSelect={(car) => setSelectedCar(car)}
-        />
-        <CarDetails car={selectedCar} />
-      </Box>
-    </ProtectedRoute>
-  );
+
+const DashboardPage = () => {
+    return (
+        <Layout>
+            <Box sx={{ width: "100%", height: "100%" }}>
+                <Typography variant="h2" sx={{ mt: "400px" }}>Welcome to your Dashboard!</Typography>
+            </Box>
+        </Layout>
+    );
 };
 
-export default CarStatusPage;
+export default DashboardPage;

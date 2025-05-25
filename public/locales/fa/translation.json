@@ -1,0 +1,8 @@
+{
+  "welcome": "خوش آمدید",
+  "login": "ورود",
+  "username": "نام کاربری",
+  "password": "رمز عبور",
+  "username_required": "نام کاربری الزامی است ",
+  "password_required": "کلمه عبور الزامی است"
+}

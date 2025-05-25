@@ -1,10 +1,11 @@
 "use client";
 import '@/styles/globals.css';
+import "@/i18n/config"
 import { CacheProvider } from '@emotion/react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import createEmotionCache from '@/theme/createEmotionCache';
-import { AuthProvider } from '@/context/AuthContext';
+import { AuthGuard } from '@/guards/AuthGuard';
 
 const cacheRtl = createEmotionCache();
 
@@ -20,12 +21,12 @@ export default function RootLayout({ children }) {
     <html lang="fa" dir="rtl">
       <body>
         <CacheProvider value={cacheRtl}>
-          <AuthProvider>
+          <AuthGuard>
             <ThemeProvider theme={theme}>
               <CssBaseline />
               {children}
             </ThemeProvider>
-          </AuthProvider>
+          </AuthGuard>
         </CacheProvider>
       </body>
     </html>
