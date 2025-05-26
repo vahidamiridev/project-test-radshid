@@ -1,5 +1,4 @@
 'use client'
-import React from 'react';
 import { Box, Drawer, Typography } from '@mui/material';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
@@ -7,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { Divider } from '@mui/material';
 import useCarStore from '@/stores/useCarStore';
 const DrawerComponents = () => {
-  const { carsInfo } = useCarStore();
+  const { carsInfo , selectedCar , setSelectedCar } = useCarStore();
   const { t } = useTranslation('translation');
   const pathname = usePathname();
   const menuItems = [
@@ -19,11 +18,14 @@ const DrawerComponents = () => {
   const drawerWidth = 240;
 
 
-  const handleClick = (e) => {
+  const handleClick = (e , car) => {
+     setSelectedCar(car);
     const id = e.currentTarget.getAttribute('data-title');
     const matchedCar = carsInfo.find(car => car.title === id);
     if (matchedCar) {
-      console.log("خودرو پیدا شد:", matchedCar);
+      console.log("خودرو پیدا شد:", matchedCar.title);
+
+
     } else {
       console.log("چنین خودرویی پیدا نشد");
     }
@@ -79,16 +81,18 @@ const DrawerComponents = () => {
             </Typography>
           </Link>
         ))}
-        <Divider sx={{ my: 2 }} />
+        <Divider sx={{ my: 4 }} />
+            <Typography align='center'    variant="h6"  sx={{my:3}}>{t("Your_Vehicles")}</Typography>
         {carsInfo.map((item) => (
           <Typography
-            onClick={(e) => handleClick(e)}
+            onClick={(e) => handleClick(e, item)}
             key={item.id}
-            data-id={item.title}
+            data-title={item.title}
             variant="body1"
             sx={{
-              p: 2,
+              py: 1,
               m: 2,
+              fontSize:"small",
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -100,8 +104,8 @@ const DrawerComponents = () => {
 
               },
               cursor: "pointer",
-              bgcolor: pathname === item.link ? "primary.main" : "inherit",
-              color: pathname === item.link ? "white" : "inherit",
+              bgcolor: selectedCar?.id === item.id ? '#FF7043' : 'inherit', 
+              color: selectedCar?.id === item.id ? 'white' : 'inherit', 
 
             }}
           >
