@@ -5,19 +5,19 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { Container, TextField, Button, Typography, Box } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { useEffect } from 'react';
-import i18n from "@/i18n/config"
+// import { useEffect } from 'react';
+// import i18n from "@/i18n/config"
 import { useAuthStore } from '@/stores/useAuthStore';
 
 export default function LoginPage() {
   const { t } = useTranslation();
   const router = useRouter();
-  const login  = useAuthStore((state)=>state.login);
+  const login = useAuthStore((state) => state.login);
 
-  useEffect(() => {
-    i18n.changeLanguage('fa');
+  // useEffect(() => {
+  //   i18n.changeLanguage('fa');
 
-  }, [])
+  // }, [])
   const {
     register,
     handleSubmit,

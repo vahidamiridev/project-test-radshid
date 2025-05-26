@@ -1,4 +1,39 @@
 {
+  "drawer": {
+    "dashboard": "داشبورد",
+    "cars": "خودروها",
+    "map": "نقشه"
+  },
+  "carsPage": {
+    "loadingCars": "در حال دریافت اطلاعات خودروها...",
+    "errorLoadingCars": "خطا در دریافت اطلاعات: {{error}}",
+    "noCarsFound": "هیچ خودرویی یافت نشد!",
+    "carListTitle": "لیست خودروها"
+  },
+  "vehicles": {
+    "taxi_hawazadeh": "تاکسی هوازاده",
+    "motorcycle": "موتور سیکلت",
+    "azrakhsh": "آذرخش",
+    "radeshid": "رادشید"
+  },
+  "weather": {
+    "title": "آب‌ و هوای اصفهان",
+    "condition": "کمی ابری",
+    "temperature": "دما",
+    "humidity": "رطوبت",
+    "windSpeed": "سرعت باد",
+    "unit": {
+      "temperature": "°C",
+      "humidity": "%",
+      "wind": "m/s"
+    },
+    "carsList": {
+      "taxi": "تاکسی هوازاده",
+      "motorcycle": "موتور سیکلت",
+      "azarakhsh": "آذرخش",
+      "radeshid": "رادشید"
+    }
+  },
   "welcome": "خوش آمدید",
   "login": "ورود",
   "username": "نام کاربری",

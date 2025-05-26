@@ -1,9 +1,7 @@
 
 import { useEffect } from 'react';
-
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useRouter } from 'next/navigation';
-
 export const AuthGuard = ({ children }) => {
   const router = useRouter();
   const logout = useAuthStore((state) => state.logout);
@@ -18,9 +16,5 @@ export const AuthGuard = ({ children }) => {
       router.replace('/dashboard');
     }
   }, []);
-
-
   return children 
-
-
 };

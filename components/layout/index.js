@@ -1,17 +1,28 @@
 "use client";
 
 import { Box } from "@mui/material";
-import AppBarComponents from '@/components/AppBar'
-import DrawerComponents from '@/components/Drawer'
-import MainContent from '@/components/MainContent '
+import AppBarComponents from '@/components/AppBar';
+import DrawerComponents from '@/components/DrawerComponents';
+import MainContent from '@/components/MainContent ';
+import useCarStore from '@/stores/useCarStore';
+import { useEffect } from "react";
 
+const Layout = ({ children }) => {
+  const { fetchCars, carsInfo } = useCarStore();
 
-const Layout = () => {
+  useEffect(() => {
+    if (!carsInfo || carsInfo.length === 0) {
+      fetchCars();
+    }
+  }, [carsInfo, fetchCars]);
+
   return (
-    <Box sx={{ display: "flex", height: "100vh" }}>
+    <Box sx={{ height: "100vh" }}>
       <AppBarComponents />
       <DrawerComponents />
-      <MainContent />
+      <MainContent>
+        {children}
+      </MainContent>
     </Box>
   );
 };

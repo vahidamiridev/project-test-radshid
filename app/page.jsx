@@ -1,7 +1,6 @@
 'use client'
 
 import { CircularProgress, Box, Typography } from '@mui/material';
-
 const SplashPage = () => {
   return (
     <Box
@@ -16,5 +15,4 @@ const SplashPage = () => {
     </Box>
   );
 };
-
-export default SplashPage;
+export default SplashPage;  
