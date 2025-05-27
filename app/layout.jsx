@@ -1,4 +1,4 @@
-"use client";
+  "use client";
 
 import '@/styles/globals.css';
 import "@/i18n/config";
@@ -8,15 +8,11 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import createEmotionCache from '@/theme/createEmotionCache';
 import { AuthGuard } from '@/guards/AuthGuard';
-import Layout from '@/components/layout';
+import FleetDashboardLayout  from '@/components/FleetDashboardLayout ';
 import useLanguageStore from '@/stores/useLanguageStore';
 import { useEffect, useMemo } from 'react';
 
 const cacheRtl = createEmotionCache();
-
-
-
-
 export default function RootLayout({ children }) {
   const { lang, dir } = useLanguageStore();
   const pathname = usePathname();
@@ -26,8 +22,6 @@ export default function RootLayout({ children }) {
 useEffect(() => {
   document.documentElement.lang = lang;
   document.documentElement.dir = dir;
-  // document.body.classList.remove("rtl", "ltr");
-  // document.body.classList.add(dir);
 }, [lang, dir]);
 
 
@@ -53,7 +47,7 @@ useEffect(() => {
               {isPublicPage ? (
                 children
               ) : (
-                <Layout>{children}</Layout>
+                <FleetDashboardLayout >{children}</FleetDashboardLayout>
               )}
             </AuthGuard>
           </ThemeProvider>

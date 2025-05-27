@@ -1,3 +1,4 @@
+'use client'
 import L from 'leaflet'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
@@ -8,7 +9,7 @@ const MapComponent = () => {
     iconSize: [50, 50]
   })
   return (
-    <Box sx={{ width: "100%", height: '100%' }}>
+    <Box sx={{ width: '100%', height: '100%' , position:'fixed' , top:"64px" , right:0 }}>
       <MapContainer center={[35.6892, 51.3]} zoom={12} style={{ width: '100%', height: '100%' }}>
         <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />
         <Marker position={[35.6892, 51.3890]} icon={icon}>

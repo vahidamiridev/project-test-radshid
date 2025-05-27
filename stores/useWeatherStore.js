@@ -1,4 +1,4 @@
-// useWeatherStore.js
+
 import { create } from 'zustand';
 
 const useWeatherStore = create((set, get) => ({

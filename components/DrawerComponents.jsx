@@ -1,121 +1,100 @@
 'use client'
-import { Box, Drawer, Typography } from '@mui/material';
+import { Box, Drawer, Typography, Divider, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
-import { Divider } from '@mui/material';
 import useCarStore from '@/stores/useCarStore';
+import useLanguageStore from '@/stores/useLanguageStore';
+import useMenusStore from '@/stores/useMenusStore';
+
+const drawerWidth = 240;
+const appBarHeight = 64;
+
 const DrawerComponents = () => {
-  const { carsInfo , selectedCar , setSelectedCar } = useCarStore();
+  const { carsInfo, selectedCar, setSelectedCar } = useCarStore();
+  const { lang, dir } = useLanguageStore();
+  const { isDrawerOpen } = useMenusStore()
+
   const { t } = useTranslation('translation');
   const pathname = usePathname();
+
   const menuItems = [
     { text: t('drawer.dashboard'), link: '/dashboard' },
     { text: t('drawer.cars'), link: '/cars' },
     { text: t('drawer.map'), link: '/map' },
   ];
-  const appBarHeight = 64;
-  const drawerWidth = 240;
 
-
-  const handleClick = (e , car) => {
-     setSelectedCar(car);
-    const id = e.currentTarget.getAttribute('data-title');
-    const matchedCar = carsInfo.find(car => car.title === id);
-    if (matchedCar) {
-      console.log("خودرو پیدا شد:", matchedCar.title);
-
-
-    } else {
-      console.log("چنین خودرویی پیدا نشد");
-    }
+  const handleClick = (e, car) => {
+    setSelectedCar(car);
   };
-
-
 
 
   return (
     <Drawer
+      key={lang}
+      variant="temporary"
+      anchor={lang === 'fa' ? 'left' : 'right'}
+      open={isDrawerOpen}
+      SlideProps={{
+        direction: lang === 'fa' ? 'left' : 'right',
+      }}
+      ModalProps={{
+        keepMounted: true,
 
-      variant="permanent"
-      anchor="left"
+      }}
+
       sx={{
-        width: drawerWidth,
-        flexShrink: 0,
-        [`& .MuiDrawer-paper`]: {
+        '& .MuiDrawer-paper': {
           width: drawerWidth,
+          boxSizing: 'border-box',
           top: appBarHeight,
           height: `calc(100% - ${appBarHeight}px)`,
-          boxSizing: "border-box",
         },
       }}
     >
-      <Box
-        sx={{ p: 3 }}
+      <Box sx={{ p: 3 }} >
+        <List >
+          {menuItems.map((item) => (
+            <Link href={item.link} key={item.link} passHref style={{ textDecoration: 'none' }}>
+              <ListItem disablePadding selected={pathname === item.link}>
+                <ListItemButton selected={pathname === item.link} sx={{
+                  '&:hover': {
+                    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                  }
+                }}>
 
-      >
-        {menuItems.map((item) => (
-          <Link href={item.link} key={item.text} style={{ textDecoration: "none" }}>
-            <Typography
-              variant="body1"
-              sx={{
-                p: 2,
-                m: 2,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: 3,
-                boxShadow: '0 2px 8px 3px rgba(0,0,0,0.1)',
-                transition: 'all 0.3s ease-in-out',
-                '&:hover': {
-                  boxShadow: '0 6px 20px rgba(0,0,0,0.2)',
-
-                },
-                cursor: "pointer",
-                bgcolor: pathname === item.link ? "primary.main" : "inherit",
-                color: pathname === item.link ? "white" : "inherit",
-
-              }}
-            >
-              {item.text}
-            </Typography>
-          </Link>
-        ))}
+                  <ListItemText primary={item.text} sx={{ textAlign: dir === 'rtl' ? 'left' : 'right' }} />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+          ))}
+        </List>
         <Divider sx={{ my: 4 }} />
-            <Typography align='center'    variant="h6"  sx={{my:3}}>{t("Your_Vehicles")}</Typography>
-        {carsInfo.map((item) => (
-          <Typography
-            onClick={(e) => handleClick(e, item)}
-            key={item.id}
-            data-title={item.title}
-            variant="body1"
-            sx={{
-              py: 1,
-              m: 2,
-              fontSize:"small",
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderRadius: 3,
-              boxShadow: '0 2px 8px 3px rgba(0,0,0,0.1)',
-              transition: 'all 0.3s ease-in-out',
-              '&:hover': {
-                boxShadow: '0 6px 20px rgba(0,0,0,0.2)',
-
-              },
-              cursor: "pointer",
-              bgcolor: selectedCar?.id === item.id ? '#FF7043' : 'inherit', 
-              color: selectedCar?.id === item.id ? 'white' : 'inherit', 
-
-            }}
-          >
-            {item.title}
+        <List subheader={
+          <Typography align="center" variant="h6" sx={{ my: 1 }}>
+            {t('Your_Vehicles')}
           </Typography>
-        ))}
-
+        }>
+          {carsInfo.map((item) => (
+            <ListItem disablePadding key={item.id} selected={selectedCar?.id === item.id}>
+              <ListItemButton
+                sx={{
+                  '&:hover': {
+                    backgroundColor: 'rgba(0, 0, 0, 0.1)', 
+                  }
+                }}
+                onClick={(e) => handleClick(e, item)}
+                selected={selectedCar?.id === item.id}
+              >
+                <ListItemText primary={item.title} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
 
       </Box>
-    </Drawer >
+    </Drawer>
   );
 };
+
 export default DrawerComponents;

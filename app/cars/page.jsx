@@ -1,16 +1,24 @@
 'use client';
 
-import { useEffect } from 'react';
-import { Box, Typography, CircularProgress, Container } from '@mui/material';
+import {
+  Box, Typography, CircularProgress, Container,
+  Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
+} from '@mui/material';
 import useCarStore from '@/stores/useCarStore';
 import { useTranslation } from 'react-i18next';
+import { useEffect } from 'react';
+
 
 const Cars = () => {
-  const { carsInfo, loading, error } = useCarStore();
+  const { carsInfo, loading, error ,fetchCars } = useCarStore();
   const { t } = useTranslation("translation");
+  
 
-
-
+  useEffect(() => {
+    if (!carsInfo || carsInfo.length === 0) {
+      fetchCars();
+    }
+  }, [carsInfo, fetchCars]);
 
   const renderContent = () => {
     if (loading) {
@@ -39,38 +47,30 @@ const Cars = () => {
     }
 
     return (
-      <Box
-        mt={4}
-        display="flex"
-        flexWrap="wrap"
-        justifyContent="center"
-        gap={3}
-      >
-        {carsInfo.map((car, index) => (
-          <Box
-            key={`${car.id}-${index}`}
-            sx={{
-              width: 200,
-              height: 200,
-              cursor: "pointer",
-              p: 2,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderRadius: 3,
-              boxShadow: '0 2px 8px 3px rgba(0,0,0,0.1)',
-              transition: 'all 0.3s ease-in-out',
-              '&:hover': {
-                boxShadow: '0 6px 20px rgba(0,0,0,0.2)',
-              }
-            }}
-          >
-            <Typography variant="h6" textAlign="center">
-               { car.title}
-            </Typography>
-          </Box>
-        ))}
-      </Box>
+      <TableContainer component={Paper} sx={{ mt: 4, borderRadius: 3 }}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell align="center">{t("carsPage.tableHeaders.index")}</TableCell>
+              <TableCell align="center">{t("carsPage.tableHeaders.title")}</TableCell>
+              <TableCell align="center">{t("carsPage.tableHeaders.phone")}</TableCell>
+              <TableCell align="center">{t("carsPage.tableHeaders.plate")}</TableCell>
+              <TableCell align="center">{t("carsPage.tableHeaders.driverName")}</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {carsInfo.map((car, index) => (
+              <TableRow key={car.id} hover>
+                <TableCell align="center">{index + 1}</TableCell>
+                <TableCell align="center">{car.title}</TableCell>
+                <TableCell align="center">{car.simPhone || '-'}</TableCell>
+                <TableCell align="center">{car.plateChar || '-'}</TableCell>
+                <TableCell align="center">{car.driverName || '-'}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     );
   };
 

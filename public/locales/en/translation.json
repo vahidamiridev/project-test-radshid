@@ -1,14 +1,26 @@
 {
+"not_found": {
+"title": "The page you requested was not found",
+"description": "Please check the address or return to the main page."
+},
   "drawer": {
     "dashboard": "Dashboard",
     "cars": "Cars",
     "map": "Map"
   },
   "carsPage": {
-    "loadingCars": "Loading car information...",
-    "errorLoadingCars": "Error loading car information: {{error}}",
-    "noCarsFound": "No cars found!",
-    "carListTitle": "Vehicles List"
+    "carListTitle": "Vehicle List",
+    "loadingCars": "Loading cars...",
+    "errorLoadingCars": "Error loading cars: {{error}}",
+    "noCarsFound": "No cars found.",
+    "tableHeaders": {
+      "index": "Index",
+      "title": "Car Title",
+      "model": "Model",
+      "plate": "License Plate",
+      "phone": "phone",
+      "driverName": "Driver Name"
+    }
   },
   "vehicles": {
     "taxi_hawazadeh": "Taxi Hawazadeh",
@@ -22,16 +34,28 @@
     "temperature": "Temperature",
     "humidity": "Humidity",
     "windSpeed": "Wind Speed",
+    "feelsLike": "Feels Like",
+    "pressure": "Pressure",
+    "seaLevel": "Sea Level",
+    "groundLevel": "Ground Level",
+    "tempMax": "Max Temperature",
+    "tempMin": "Min Temperature",
     "unit": {
       "temperature": "°C",
       "humidity": "%",
-      "wind": "m/s"
+      "wind": "m/s",
+      "pressure": "hPa"
     },
     "carsList": {
       "taxi": "Taxi Hawazadeh",
       "motorcycle": "Motorcycle",
       "azarakhsh": "Azarakhsh",
       "radeshid": "Radeshid"
+    }
+  },
+  "errors": {
+    "weather": {
+      "noData": "The server is currently not responding."
     }
   },
   "Your_Vehicles": "Your Vehicles",

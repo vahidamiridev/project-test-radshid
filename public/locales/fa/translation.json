@@ -1,14 +1,26 @@
 {
+"not_found": {
+  "title": "صفحه مورد نظر یافت نشد",
+  "description": "لطفا آدرس را بررسی کنید یا به صفحه اصلی بازگردید."
+},
   "drawer": {
     "dashboard": "داشبورد",
     "cars": "خودروها",
     "map": "نقشه"
   },
   "carsPage": {
-    "loadingCars": "در حال دریافت اطلاعات خودروها...",
-    "errorLoadingCars": "خطا در دریافت اطلاعات: {{error}}",
-    "noCarsFound": "هیچ خودرویی یافت نشد!",
-    "carListTitle": "لیست خودروها"
+  "carListTitle": "لیست وسایل نقلیه",
+  "loadingCars": "در حال بارگذاری خودروها...",
+  "errorLoadingCars": "خطا در بارگذاری خودروها: {{error}}",
+  "noCarsFound": "خودرویی یافت نشد.",
+  "tableHeaders": {
+    "index": "ردیف",
+    "title": "عنوان خودرو",
+    "model": "مدل",
+    "plate": "پلاک",
+    "phone": "تماس",
+    "driverName": "نام راننده"
+  }
   },
   "vehicles": {
     "taxi_hawazadeh": "تاکسی هوازاده",
@@ -17,21 +29,33 @@
     "radeshid": "رادشید"
   },
   "weather": {
-    "title": "آب‌ و هوای اصفهان",
-    "condition": "کمی ابری",
-    "temperature": "دما",
-    "humidity": "رطوبت",
-    "windSpeed": "سرعت باد",
-    "unit": {
-      "temperature": "°C",
-      "humidity": "%",
-      "wind": "m/s"
+  "title": "وضعیت آب‌ وهوای اصفهان",
+  "condition": "نیمه‌ابری",
+  "temperature": "دما",
+  "humidity": "رطوبت",
+  "windSpeed": "سرعت باد",
+  "feelsLike": "احساس دما",
+  "pressure": "فشار هوا",
+  "seaLevel": "فشار سطح دریا",
+  "groundLevel": "فشار سطح زمین",
+  "tempMax": "بیشینه دما",
+  "tempMin": "کمینه دما",
+  "unit": {
+    "temperature": "°C",
+    "humidity": "%",
+    "wind": "متر بر ثانیه",
+    "pressure": "هکتوپاسکال"
     },
     "carsList": {
       "taxi": "تاکسی هوازاده",
       "motorcycle": "موتور سیکلت",
       "azarakhsh": "آذرخش",
-      "radeshid": "رادشید"
+      "radeshid": "رادشید"  
+    }
+  },
+    "errors":{
+    "weather":{
+      "noData":"سرور در حال حاضر پاسخگو نیست "
     }
   },
   "Your_Vehicles": " وسایل نقلیه شما",
