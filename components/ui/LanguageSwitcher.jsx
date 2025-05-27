@@ -1,28 +1,27 @@
-"use client";
+'use client';
 
-import { Button } from "@mui/material";
-import useLanguageStore from "@/stores/useLanguageStore";
+import { IconButton } from '@mui/material';
+import useLanguageStore from '@/stores/useLanguageStore';
 
 export default function LanguageSwitcher() {
-  const { toggleLanguage, lang } = useLanguageStore()
+  const { toggleLanguage, lang } = useLanguageStore();
 
   return (
-    <Button
-      variant="contained"
-      color="primary"
+    <IconButton
       onClick={toggleLanguage}
-      size="small"
       sx={{
-        display:"block",
-        mx:"1rem",
-        minWidth: 'auto',  
-        padding: '4px 8px',
-        fontSize: '0.75rem', 
-        lineHeight: 1,
+        padding: 0,
+        width: 32,
+        height: 32,
+        borderRadius: '5px',
+        overflow: 'hidden',
       }}
     >
-      {lang === "fa" ? "EN" : "فا"}
-    </Button>
-
+      <img
+        src={lang === 'fa' ? 'img/icon-en.png' : 'img/icon-fa.png'}
+        alt="language switch"
+        style={{ width: '100%', height: '100%' }}
+      />
+    </IconButton>
   );
 }

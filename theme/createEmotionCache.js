@@ -8,3 +8,4 @@ export default function createEmotionCache() {
     stylisPlugins: [prefixer, rtlPlugin],
   });
 }
+

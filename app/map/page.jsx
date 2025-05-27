@@ -2,19 +2,25 @@
 
 'use client'
 import dynamic from 'next/dynamic'
-import { Box, Typography } from '@mui/material'
+import { Box } from '@mui/material'
+import { useEffect } from 'react'
+import  useCarStore  from '@/stores/useCarStore'
 
 const MapComponent = dynamic(() => import('@/components/MapComponent'), {
   ssr: false,
 })
 
 const MapPage = () => {
-  let carSelected = "آذرخش" 
+
+
+const {carsInfo} = useCarStore()
+  useEffect(() => {
+    console.log(carsInfo)
+
+  })
   return (
     <Box sx={{ width: '100vw', height: '100vh', overflow: 'hidden' }}>
-
-        <MapComponent />
-
+      <MapComponent />
     </Box>
   )
 }

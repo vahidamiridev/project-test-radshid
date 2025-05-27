@@ -1,4 +1,5 @@
 // stores/useAuthStore.js
+import { useRouter } from 'next/router';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -14,6 +15,7 @@ export const useAuthStore = create(
       logout: () =>{
           set({ isAuthenticated: false, token: null })
                 localStorage.removeItem('authToken');
+        
       } 
     }),
     {

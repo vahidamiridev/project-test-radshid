@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import useCarStore from '@/stores/useCarStore';
 import useLanguageStore from '@/stores/useLanguageStore';
 import useMenusStore from '@/stores/useMenusStore';
+import { useEffect } from 'react';
 
 const drawerWidth = 240;
 const appBarHeight = 64;
@@ -27,6 +28,7 @@ const DrawerComponents = () => {
   const handleClick = (e, car) => {
     setSelectedCar(car);
   };
+
 
 
   return (
@@ -58,9 +60,15 @@ const DrawerComponents = () => {
             <Link href={item.link} key={item.link} passHref style={{ textDecoration: 'none' }}>
               <ListItem disablePadding selected={pathname === item.link}>
                 <ListItemButton selected={pathname === item.link} sx={{
-                  '&:hover': {
-                    backgroundColor: 'rgba(0, 0, 0, 0.1)',
-                  }
+
+                  '&.Mui-selected': {
+                    backgroundColor: '#2b76d0',
+                    color: '#fff',
+                    '&:hover': {
+                      backgroundColor: '#2b76d0cc',
+                    },
+                  },
+
                 }}>
 
                   <ListItemText primary={item.text} sx={{ textAlign: dir === 'rtl' ? 'left' : 'right' }} />
@@ -79,9 +87,14 @@ const DrawerComponents = () => {
             <ListItem disablePadding key={item.id} selected={selectedCar?.id === item.id}>
               <ListItemButton
                 sx={{
-                  '&:hover': {
-                    backgroundColor: 'rgba(0, 0, 0, 0.1)', 
-                  }
+                  '&.Mui-selected': {
+                    backgroundColor: '#2b76d0',
+                    color: '#fff',
+                    '&:hover': {
+                      backgroundColor: '#2b76d0cc',
+                    },
+                  },
+
                 }}
                 onClick={(e) => handleClick(e, item)}
                 selected={selectedCar?.id === item.id}

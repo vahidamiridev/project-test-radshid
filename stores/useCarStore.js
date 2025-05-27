@@ -15,7 +15,7 @@ const useCarStore = create((set, get) => ({
     set({ loading: true, error: null });
     try {
       const res = await api.get('v1/cars');
-      set({ carsInfo: res.data, loading: false });
+      set({ carsInfo: res.data, loading: false ,selectedCar:res.data[0]  });
     } catch (error) {
       set({ error: error.message || 'خطا در دریافت خودروها', loading: false });
     }
