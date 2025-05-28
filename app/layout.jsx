@@ -11,6 +11,8 @@ import { AuthGuard } from '@/guards/AuthGuard';
 import FleetDashboardLayout  from '@/components/FleetDashboardLayout ';
 import useLanguageStore from '@/stores/useLanguageStore';
 import { useEffect, useMemo } from 'react';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const cacheRtl = createEmotionCache();
 export default function RootLayout({ children }) {
@@ -47,7 +49,10 @@ useEffect(() => {
               {isPublicPage ? (
                 children
               ) : (
-                <FleetDashboardLayout >{children}</FleetDashboardLayout>
+                <FleetDashboardLayout >
+                  {children}
+                    <ToastContainer position="bottom-left" />
+                  </FleetDashboardLayout>
               )}
             </AuthGuard>
           </ThemeProvider>

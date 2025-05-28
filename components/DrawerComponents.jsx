@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import useCarStore from '@/stores/useCarStore';
 import useLanguageStore from '@/stores/useLanguageStore';
 import useMenusStore from '@/stores/useMenusStore';
-import { useEffect } from 'react';
+import CarsListComponent from '@/components/CarsListComponent';
 
 const drawerWidth = 240;
 const appBarHeight = 64;
@@ -14,15 +14,15 @@ const appBarHeight = 64;
 const DrawerComponents = () => {
   const { carsInfo, selectedCar, setSelectedCar } = useCarStore();
   const { lang, dir } = useLanguageStore();
-  const { isDrawerOpen } = useMenusStore()
+  const { isDrawerOpen, closeDrawer, openDrawer } = useMenusStore()
 
   const { t } = useTranslation('translation');
   const pathname = usePathname();
 
   const menuItems = [
-    { text: t('drawer.dashboard'), link: '/dashboard' },
-    { text: t('drawer.cars'), link: '/cars' },
-    { text: t('drawer.map'), link: '/map' },
+    { id: 1, text: t('drawer.dashboard'), link: '/dashboard' },
+    { id: 2, text: t('drawer.cars'), link: '/cars' },
+    { id: 3, text: t('drawer.map'), link: '/map' },
   ];
 
   const handleClick = (e, car) => {
@@ -54,56 +54,34 @@ const DrawerComponents = () => {
         },
       }}
     >
-      <Box sx={{ p: 3 }} >
-        <List >
+      <Box sx={{ p: 2 }} >
+        <List>
           {menuItems.map((item) => (
-            <Link href={item.link} key={item.link} passHref style={{ textDecoration: 'none' }}>
+            <Link href={item.link} key={item.id} passHref style={{ textDecoration: 'none' }}>
               <ListItem disablePadding selected={pathname === item.link}>
-                <ListItemButton selected={pathname === item.link} sx={{
-
-                  '&.Mui-selected': {
-                    backgroundColor: '#2b76d0',
-                    color: '#fff',
-                    '&:hover': {
-                      backgroundColor: '#2b76d0cc',
+                <ListItemButton
+                  selected={pathname === item.link}
+                  onClick={closeDrawer}
+                  sx={{
+                    '&.Mui-selected': {
+                      backgroundColor: '#2b76d0',
+                      color: '#fff',
+                      '&:hover': {
+                        backgroundColor: '#2b76d0cc',
+                      },
                     },
-                  },
-
-                }}>
-
-                  <ListItemText primary={item.text} sx={{ textAlign: dir === 'rtl' ? 'left' : 'right' }} />
+                  }}
+                >
+                  <ListItemText
+                    primary={item.text}
+                    sx={{ textAlign: dir === 'rtl' ? 'left' : 'right' }}
+                  />
                 </ListItemButton>
               </ListItem>
             </Link>
           ))}
         </List>
         <Divider sx={{ my: 4 }} />
-        <List subheader={
-          <Typography align="center" variant="h6" sx={{ my: 1 }}>
-            {t('Your_Vehicles')}
-          </Typography>
-        }>
-          {carsInfo.map((item) => (
-            <ListItem disablePadding key={item.id} selected={selectedCar?.id === item.id}>
-              <ListItemButton
-                sx={{
-                  '&.Mui-selected': {
-                    backgroundColor: '#2b76d0',
-                    color: '#fff',
-                    '&:hover': {
-                      backgroundColor: '#2b76d0cc',
-                    },
-                  },
-
-                }}
-                onClick={(e) => handleClick(e, item)}
-                selected={selectedCar?.id === item.id}
-              >
-                <ListItemText primary={item.title} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
 
       </Box>
     </Drawer>

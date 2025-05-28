@@ -9,21 +9,19 @@ const MainContent = ({ children }) => {
     <Box
       component="main"
       sx={{
+
         flexGrow: 1,
-        p: 1,
+        // p: 1,
         mt: `${appBarHeight}px`,
-        // ml: `${drawerWidth}px`,
         overflow: "hidden",
-        // height: `calc(100vh - ${appBarHeight}px)`,
-        // height: `calc(100vh - ${appBarHeight}px)`,
         width:"100vw",
         height:"100%",
         boxSizing: 'border-box'
       }}
     >
-      <Container sx={{ width: "100vw", height: "100%" }}>
+      <Box sx={{ width: "100%", height: "100%"  }}>
         {children}
-      </Container>
+      </Box>
     </Box>
   );
 };

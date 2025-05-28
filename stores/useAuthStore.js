@@ -1,5 +1,3 @@
-// stores/useAuthStore.js
-import { useRouter } from 'next/router';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -8,18 +6,22 @@ export const useAuthStore = create(
     (set) => ({
       isAuthenticated: false,
       token: null,
-      login: (token) =>{
-          set({ isAuthenticated: true, token })
-            localStorage.setItem('authToken', token);
-      } ,
-      logout: () =>{
-          set({ isAuthenticated: false, token: null })
-                localStorage.removeItem('authToken');
-        
-      } 
+      userInfo: null, 
+
+      login: ({ token, userInfo }) => {
+        set({ isAuthenticated: true, token, userInfo });
+        localStorage.setItem('authToken', token);
+        localStorage.setItem('authUser', JSON.stringify(userInfo));
+      },
+
+      logout: () => {
+        set({ isAuthenticated: false, token: null, user: null });
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('authUser');
+      },
     }),
     {
-      tokenName: 'authToken', 
+      name: 'auth',
     }
   )
 );

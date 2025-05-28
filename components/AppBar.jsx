@@ -12,21 +12,21 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import LogoutIcon from '@mui/icons-material/Logout';
 import useMenusStore from '@/stores/useMenusStore';
-import useCarStore from '@/stores/useCarStore';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useRouter } from 'next/navigation';
 
+
 const AppBarComponents = () => {
-  const { isDrawerOpen, toggleDrawer } = useMenusStore();
-  const logout = useAuthStore((state) => state.logout);
+  const { toggleDrawer } = useMenusStore();
+  const {  logout , userInfo  } = useAuthStore.getState();
+
+
+
   const router = useRouter()
 
 
   const appBarHeight = 64;
-  const user = {
-    name: 'وحید امیری',
-    avatarUrl: '/images/user.jpg',
-  };
+
 
   const handleLogout = () => {
     logout()
@@ -50,9 +50,9 @@ const AppBarComponents = () => {
         </IconButton>
 
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <Avatar src={user.avatarUrl} alt={user.name} sx={{ width: 32, height: 32 }} />
+          <Avatar src={userInfo.profileImage} alt={userInfo.user} sx={{ width: 32, height: 32 }} />
           <Typography variant="subtitle2" sx={{ color: 'white' }}>
-            {user.name}
+            {userInfo.user}
           </Typography>
           <Tooltip title="خروج">
             <IconButton color="inherit" onClick={handleLogout}>

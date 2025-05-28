@@ -5,7 +5,7 @@ import AppBarComponents from '@/components/AppBar';
 import DrawerComponents from '@/components/DrawerComponents';
 import MainContent from '@/components/MainContent ';
 
-const Layout = ({ children }) => {
+const FleetDashboardLayout   = ({ children }) => {
 
 
   return (
@@ -19,4 +19,4 @@ const Layout = ({ children }) => {
   );
 };
 
-export default Layout;
+export default FleetDashboardLayout ;

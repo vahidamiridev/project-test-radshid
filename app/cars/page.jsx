@@ -17,7 +17,6 @@ const Cars = () => {
   useEffect(() => {
     if (!carsInfo || carsInfo.length === 0) {
       fetchCars();
-      console.log(carsInfo)
     }
   }, [carsInfo, fetchCars]);
 
@@ -48,30 +47,49 @@ const Cars = () => {
     }
 
     return (
-      <TableContainer component={Paper} sx={{ mt: 4, borderRadius: 3 }}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell align="center">{t("carsPage.tableHeaders.index")}</TableCell>
-              <TableCell align="center">{t("carsPage.tableHeaders.title")}</TableCell>
-              <TableCell align="center">{t("carsPage.tableHeaders.phone")}</TableCell>
-              <TableCell align="center">{t("carsPage.tableHeaders.plate")}</TableCell>
-              <TableCell align="center">{t("carsPage.tableHeaders.driverName")}</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {carsInfo.map((car, index) => (
-              <TableRow key={car.id} hover>
-                <TableCell align="center">{index + 1}</TableCell>
-                <TableCell align="center">{car.title}</TableCell>
-                <TableCell align="center">{car.simPhone || '-'}</TableCell>
-                <TableCell align="center">{car.plateChar || '-'}</TableCell>
-                <TableCell align="center">{car.driverName || '-'}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+<TableContainer
+  component={Paper}
+  sx={{
+    mt: 4,
+    borderRadius: 3,
+    overflowX: 'auto',  
+    width: '100%',
+  }}
+>
+  <Table sx={{ minWidth: 600 }}>  
+    <TableHead>
+      <TableRow>
+        <TableCell align="center" sx={{ fontSize: { xs: '0.75rem', sm: '1rem' } }}>
+          {t("carsPage.tableHeaders.index")}
+        </TableCell>
+        <TableCell align="center" sx={{ fontSize: { xs: '0.75rem', sm: '1rem' } }}>
+          {t("carsPage.tableHeaders.title")}
+        </TableCell>
+        <TableCell align="center" sx={{ fontSize: { xs: '0.75rem', sm: '1rem' } }}>
+          {t("carsPage.tableHeaders.phone")}
+        </TableCell>
+        <TableCell align="center" sx={{ fontSize: { xs: '0.75rem', sm: '1rem' } }}>
+          {t("carsPage.tableHeaders.plate")}
+        </TableCell>
+        <TableCell align="center" sx={{ fontSize: { xs: '0.75rem', sm: '1rem' } }}>
+          {t("carsPage.tableHeaders.driverName")}
+        </TableCell>
+      </TableRow>
+    </TableHead>
+    <TableBody>
+      {carsInfo.map((car, index) => (
+        <TableRow key={car.id} hover>
+          <TableCell align="center">{index + 1}</TableCell>
+          <TableCell align="center">{car.title}</TableCell>
+          <TableCell align="center">{car.simPhone || '-'}</TableCell>
+          <TableCell align="center">{car.plateChar || '-'}</TableCell>
+          <TableCell align="center">{car.driverName || '-'}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+  </Table>
+</TableContainer>
+
     );
   };
 

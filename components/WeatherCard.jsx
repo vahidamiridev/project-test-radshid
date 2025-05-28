@@ -28,7 +28,9 @@ const WeatherCard = () => {
     fetchWeather();
   }, []);
 
-  if (loading) return <CircularProgress sx={{ mt: 4 }} />;
+  if (loading) return (    <Box sx={{ mx: 'auto', mt: 5 }} align="center">
+    <CircularProgress sx={{ mt: 4 }} />
+  </Box>);
   if (error) return <Typography color="error">❌ {t("errors.wheather.noData")}</Typography>;
   if (!weather) return null;
 
@@ -80,8 +82,14 @@ const WeatherCard = () => {
   ];
 
   return (
-    <Box sx={{ maxWidth: "100%", mx: 'auto', mt: 5 }} align="center">
-      <Card sx={{ boxShadow: 6, borderRadius: 4  , maxWidth: 400 , }} >
+    <Box sx={{ mx: 'auto', mt: 5 }} align="center">
+      <Card sx={{
+        boxShadow: 6,
+        borderRadius: 4,
+        width: '100%',
+        maxWidth: { xs: '100%', sm: 400 },
+        mx: 'auto',
+      }} >
         <CardContent>
           <Typography variant="h5" textAlign="center" gutterBottom>
             {t('weather.title')}
@@ -105,18 +113,18 @@ const WeatherCard = () => {
         </CardContent>
       </Card>
 
-      {/* کارت‌های جزئیات */}
-      <Grid container spacing={2} mt={2}>
+      <Grid container spacing={2} mt={6} justifyContent="center" columns={{ xs: 4, sm: 8, md: 12 }}>
         {detailItems.map((item, index) => (
-          <Grid   key={index}>
-            <Card sx={{ borderRadius: 3, textAlign: 'center', py: 2 ,  }}>
-              <Box sx={{width:"200px"}}>{item.icon}</Box>
+          <Grid key={index} span={{ xs: 4, sm: 4, md: 4 }}>
+            <Card sx={{ borderRadius: 3, textAlign: 'center', py: 2, minWidth: "13rem" }}>
+              <Box>{item.icon}</Box>
               <Typography variant="subtitle2" mt={1}>{item.label}</Typography>
               <Typography variant="h6">{item.value} {item.unit}</Typography>
             </Card>
           </Grid>
         ))}
       </Grid>
+
     </Box>
   );
 };

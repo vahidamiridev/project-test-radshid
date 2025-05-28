@@ -8,27 +8,24 @@ export const AuthGuard = ({ children }) => {
   const router = useRouter();
   const pathname = usePathname();
   const logout = useAuthStore((state) => state.logout);
-  const [isAuthorized, setIsAuthorized] = useState(null);
+  const [isChecked, setIsChecked] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('authToken');
 
-    // اگه کاربر تو صفحه لاگینه، گارد رو غیرفعال کن
-    if (pathname === '/login') {
-      setIsAuthorized(true);
-      return;
-    }
-
-    if (!token) {
+    if (!token && pathname !== '/login') {
       logout();
       router.replace('/login');
-      setIsAuthorized(false);
-    } else {
-      setIsAuthorized(true);
     }
+
+    if (token && (pathname === '/' || pathname === '/login')) {
+      router.replace('/dashboard');
+    }
+
+    setIsChecked(true);
   }, [pathname]);
 
-  if (isAuthorized === null) {
+  if (!isChecked) {
     return (
       <Box
         display="flex"
@@ -39,10 +36,6 @@ export const AuthGuard = ({ children }) => {
         <CircularProgress />
       </Box>
     );
-  }
-
-  if (isAuthorized === false) {
-    return null; // در حال ریدایرکت شدن به لاگین
   }
 
   return children;

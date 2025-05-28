@@ -13,9 +13,6 @@ export default function LoginPage() {
   const { t } = useTranslation();
   const router = useRouter();
   const login = useAuthStore((state) => state.login);
-
-
-
   const {
     register,
     handleSubmit,
@@ -31,8 +28,7 @@ export default function LoginPage() {
         domain: 'spa.radshid.com',
       });
       const token = res.data.token;
-      
-      login(token);
+      login({ token, userInfo: res.data });
       router.push('/dashboard')
     } catch (err) {
       console.error('خطای ورود:', err);
