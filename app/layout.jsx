@@ -1,4 +1,4 @@
-  "use client";
+"use client";
 
 import '@/styles/globals.css';
 import "@/i18n/config";
@@ -8,7 +8,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import createEmotionCache from '@/theme/createEmotionCache';
 import { AuthGuard } from '@/guards/AuthGuard';
-import FleetDashboardLayout  from '@/components/FleetDashboardLayout ';
+import FleetDashboardLayout from '@/components/FleetDashboardLayout';
 import useLanguageStore from '@/stores/useLanguageStore';
 import { useEffect, useMemo } from 'react';
 import { ToastContainer } from 'react-toastify';
@@ -21,10 +21,10 @@ export default function RootLayout({ children }) {
   const isPublicPage = pathname === '/' || pathname === '/login';
 
 
-useEffect(() => {
-  document.documentElement.lang = lang;
-  document.documentElement.dir = dir;
-}, [lang, dir]);
+  useEffect(() => {
+    document.documentElement.lang = lang;
+    document.documentElement.dir = dir;
+  }, [lang, dir]);
 
 
   const theme = useMemo(
@@ -51,8 +51,8 @@ useEffect(() => {
               ) : (
                 <FleetDashboardLayout >
                   {children}
-                    <ToastContainer position="bottom-left" />
-                  </FleetDashboardLayout>
+                  <ToastContainer position="bottom-left" />
+                </FleetDashboardLayout>
               )}
             </AuthGuard>
           </ThemeProvider>

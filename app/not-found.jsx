@@ -5,8 +5,8 @@ function Notfound() {
   const { t } = useTranslation('translation');
   return (
     <Box sx={{ textAlign: 'center', padding: '5rem' }}>
-      <Typography variant='h1' sx={{ mb: 8 }}>{t("notfound.title")}</Typography>
-      <Typography>{t("notfound.description")} </Typography>
+      <Typography variant='h1' sx={{ mb: 8 }}>{t("not_found.title")}</Typography>
+      <Typography>{t("not_found.description")} </Typography>
     </Box>
   )
 }

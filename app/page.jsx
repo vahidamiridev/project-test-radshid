@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 const SplashPage = () => {
+  
   const router = useRouter();
 
   useEffect(() => {

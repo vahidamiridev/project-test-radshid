@@ -5,7 +5,7 @@
 },
   "drawer": {
     "dashboard": "Dashboard",
-    "cars": "Cars",
+    "myVehicles": "My Vehicles",
     "map": "Map"
   },
   "carsPage": {
@@ -58,11 +58,13 @@
       "noData": "The server is currently not responding."
     }
   },
-  "Your_Vehicles": "Your Vehicles",
-  "welcome": "welcome",
-  "login": "Login",
-  "username": "Username",
-  "password": "Password",
-  "username_required": "Username is required.",
-  "password_required": "password is required."
+  "login":{
+    "invalidCredentials": "Username or password is incorrect",
+    "welcome": "welcome",
+    "login": "Login",
+    "username": "Username",
+    "password": "Password",
+    "username_required": "Username is required.",
+    "password_required": "password is required."
+  }
 }

@@ -16,21 +16,18 @@ import { useAuthStore } from '@/stores/useAuthStore';
 import { useRouter } from 'next/navigation';
 
 
-const AppBarComponents = () => {
+const AppBarComponent = () => {
+
   const { toggleDrawer } = useMenusStore();
-  const {  logout , userInfo  } = useAuthStore.getState();
-
-
+  const { logout, userInfo } = useAuthStore.getState();
 
   const router = useRouter()
-
-
   const appBarHeight = 64;
 
 
   const handleLogout = () => {
     logout()
-    router.push('/login'); 
+    router.push('/login');
   };
 
   return (
@@ -65,4 +62,4 @@ const AppBarComponents = () => {
   );
 };
 
-export default AppBarComponents;
+export default AppBarComponent;

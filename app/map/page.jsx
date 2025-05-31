@@ -1,7 +1,7 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import { Box, useTheme, useMediaQuery, CircularProgress, Typography } from '@mui/material'
+import { Box, CircularProgress, Typography } from '@mui/material'
 import useCarStore from '@/stores/useCarStore'
 import CarsListComponent from '@/components/CarsListComponent'
 import { useEffect } from 'react'
@@ -12,14 +12,10 @@ const MapComponent = dynamic(() => import('@/components/MapComponent'), {
 })
 
 
-
-
 const MapPage = () => {
-  const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
-  const { carsInfo,selectedCar, loading, error, fetchCars  ,setSelectedCar} = useCarStore();
 
-    const { t } = useTranslation("translation");
+  const { t } = useTranslation("translation");
+  const { carsInfo, loading, error, fetchCars } = useCarStore();
 
 
   useEffect(() => {
@@ -28,7 +24,7 @@ const MapPage = () => {
     }
   }, [carsInfo, fetchCars]);
 
-  const renderContent = () => {                                                                                     
+  const renderContent = () => {
     if (loading) {
       return (
         <Box display="flex" flexDirection="column" alignItems="center" mt={10}>
@@ -62,48 +58,48 @@ const MapPage = () => {
 
       );
     }
-  
+
+
+    return (
+      <>
+
+        <Box
+          sx={{
+
+            width: { xs: '100%', lg: '15%' },
+            height: { xs: '30vh', lg: '100vh' },
+            overflowY: 'auto',
+            borderBottom: { xs: '1px solid #ccc', sm: 'none' }
+          }}
+        >
+          <CarsListComponent />
+        </Box>
+
+        <Box
+          sx={{
+            width: { xs: '100%', lg: '85%' },
+            height: { xs: '70vh', lg: '100vh' },
+          }}
+        >
+          <MapComponent />
+        </Box>
+      </>
+
+    )
+  }
 
   return (
-<>
-
-      <Box
-        sx={{
-
-          width: { xs: '100%', lg: '15%' },
-          height: { xs: '30vh', lg: '100vh' },
-          overflowY: 'auto',
-          borderBottom: { xs: '1px solid #ccc', sm: 'none' }
-        }}
-      >
-        <CarsListComponent />
-      </Box>
-
-      <Box
-        sx={{
-          width: { xs: '100%', lg: '85%' },
-          height: { xs: '70vh', lg: '100vh' },
-        }}
-      >
-        <MapComponent />
-      </Box>
-</>
-
-  )
-}
-
-return(
-  <Box
-  sx={{
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    flexDirection: { xs: 'column', lg: 'row' },
-  }}
-  >
+    <Box
+      sx={{
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        flexDirection: { xs: 'column', lg: 'row' },
+      }}
+    >
       {renderContent()}
     </Box>
-)
+  )
 
 }
 export default MapPage

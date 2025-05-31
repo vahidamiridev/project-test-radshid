@@ -1,9 +1,8 @@
 'use client'
 import React from 'react';
-import { Box, Container } from '@mui/material';
-const MainContent = ({ children }) => {
+import { Box } from '@mui/material';
+const MainContentComponent = ({ children }) => {
   const appBarHeight = 64;
-  const drawerWidth = 240;
   return (
 
     <Box
@@ -25,4 +24,4 @@ const MainContent = ({ children }) => {
     </Box>
   );
 };
-export default MainContent;
+export default MainContentComponent;

@@ -5,7 +5,7 @@
 },
   "drawer": {
     "dashboard": "داشبورد",
-    "cars": "خودروها",
+    "myVehicles": "وسایل نقلیه من",
     "map": "نقشه"
   },
   "carsPage": {
@@ -58,11 +58,13 @@
       "noData":"سرور در حال حاضر پاسخگو نیست "
     }
   },
-  "Your_Vehicles": " وسایل نقلیه شما",
-  "welcome": "خوش آمدید",
-  "login": "ورود",
-  "username": "نام کاربری",
-  "password": "رمز عبور",
-  "username_required": "نام کاربری الزامی است ",
-  "password_required": "کلمه عبور الزامی است"
+  "login":{
+    "invalidCredentials": " نام کاربری یا رمز ورود اشتباه است",
+    "welcome": "خوش آمدید",
+    "login": "ورود",
+    "username": "نام کاربری",
+    "password": "رمز عبور",
+    "username_required": "نام کاربری الزامی است ",
+    "password_required": "کلمه عبور الزامی است"
+  }
 }

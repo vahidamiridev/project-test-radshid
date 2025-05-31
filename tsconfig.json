@@ -22,6 +22,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/layout.jsx", "app/page.jsx", "components/DrawerComponents.jsx", "components/MainContent .jsx", "next.config.js", "theme/createEmotionCache.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/layout.jsx", "app/page.jsx", "components/DrawerComponent.jsx", "components/MainContentComponent.jsx", "next.config.js", "theme/createEmotionCache.ts"],
   "exclude": ["node_modules"]
 }

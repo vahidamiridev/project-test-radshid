@@ -1,35 +1,26 @@
 'use client'
-import { Box, Drawer, Typography, Divider, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { Box, Drawer, Divider, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
-import useCarStore from '@/stores/useCarStore';
 import useLanguageStore from '@/stores/useLanguageStore';
 import useMenusStore from '@/stores/useMenusStore';
-import CarsListComponent from '@/components/CarsListComponent';
 
-const drawerWidth = 240;
-const appBarHeight = 64;
 
-const DrawerComponents = () => {
-  const { carsInfo, selectedCar, setSelectedCar } = useCarStore();
+const DrawerComponent = () => {
   const { lang, dir } = useLanguageStore();
-  const { isDrawerOpen, closeDrawer, openDrawer } = useMenusStore()
+  const { isDrawerOpen, closeDrawer } = useMenusStore()
 
   const { t } = useTranslation('translation');
   const pathname = usePathname();
+  const drawerWidth = 240;
+  const appBarHeight = 64;
 
   const menuItems = [
     { id: 1, text: t('drawer.dashboard'), link: '/dashboard' },
-    { id: 2, text: t('drawer.cars'), link: '/cars' },
+    { id: 2, text: t('drawer.myVehicles'), link: '/vehiclesList' },
     { id: 3, text: t('drawer.map'), link: '/map' },
   ];
-
-  const handleClick = (e, car) => {
-    setSelectedCar(car);
-  };
-
-
 
   return (
     <Drawer
@@ -88,4 +79,4 @@ const DrawerComponents = () => {
   );
 };
 
-export default DrawerComponents;
+export default DrawerComponent;

@@ -6,7 +6,7 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: 'https://api.radshid.com/api/v1/:path*', // مقصد اصلی API
+        destination: 'https://api.radshid.com/api/v1/:path*', 
       },
     ]
   },

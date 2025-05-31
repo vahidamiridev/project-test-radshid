@@ -1,19 +1,19 @@
 'use client';
 
+import { useEffect } from 'react';
 import {
   Box, Typography, CircularProgress, Container,
   Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 } from '@mui/material';
 import useCarStore from '@/stores/useCarStore';
 import { useTranslation } from 'react-i18next';
-import { useEffect } from 'react';
 
 
-const Cars = () => {
-  const { carsInfo, loading, error ,fetchCars } = useCarStore();
+const VehiclesList = () => {
+
   const { t } = useTranslation("translation");
+  const { carsInfo, loading, error ,fetchCars } = useCarStore();
   
-
   useEffect(() => {
     if (!carsInfo || carsInfo.length === 0) {
       fetchCars();
@@ -103,4 +103,4 @@ const Cars = () => {
   );
 };
 
-export default Cars;
+export default VehiclesList;
