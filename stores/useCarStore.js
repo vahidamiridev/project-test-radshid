@@ -27,7 +27,7 @@ const useCarStore = create((set, get) => ({
 
   addVehiclePosition: (avlId, newPosition) => {
     const positions = get().vehiclePositions[avlId] || [];
-    const updated = [newPosition, ...positions].slice(0, 4); 
+    const updated = [   ...positions , newPosition ].slice(0, 4); 
 
     set((state) => ({
       vehiclePositions: {
