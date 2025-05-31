@@ -16,6 +16,7 @@ const VehiclesList = () => {
   
   useEffect(() => {
     if (!carsInfo || carsInfo.length === 0) {
+
       fetchCars();
     }
   }, [carsInfo, fetchCars]);

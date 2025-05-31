@@ -1,5 +1,5 @@
-import { create } from 'zustand';
-import api from '@/lib/axios';
+import { create } from "zustand";
+import api from "@/lib/axios";
 
 const useCarStore = create((set, get) => ({
   selectedCars: [],
@@ -8,7 +8,6 @@ const useCarStore = create((set, get) => ({
   vehiclePositions: {},
   loading: false,
   error: null,
-
 
   toggleCarSelection: (car) => {
     const { selectedCars, selectedCarAvlIds, vehiclePositions } = get();
@@ -37,7 +36,6 @@ const useCarStore = create((set, get) => ({
     }
   },
 
-
   addVehiclePosition: (avlId, newPosition) => {
     const positions = get().vehiclePositions[avlId] || [];
     const updated = [...positions, newPosition].slice(0, 4);
@@ -57,14 +55,14 @@ const useCarStore = create((set, get) => ({
     set({ loading: true, error: null });
 
     try {
-      const res = await api.get('v1/cars');
+      const res = await api.get("v1/cars");
       set({
         carsInfo: res.data,
         loading: false,
       });
     } catch (error) {
       set({
-        error: error.message || 'خطا در دریافت خودروها',
+        error: error.message || "خطا در دریافت خودروها",
         loading: false,
       });
     }
