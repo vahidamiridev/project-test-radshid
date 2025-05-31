@@ -47,7 +47,7 @@ const AppBarComponent = () => {
         </IconButton>
 
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <Avatar src={userInfo.profileImage} alt={userInfo.user} sx={{ width: 32, height: 32 }} />
+          <Avatar src={"https://api.radshid.com/"+userInfo.profileImage} alt={userInfo.user} sx={{ width: 32, height: 32 }} />
           <Typography variant="subtitle2" sx={{ color: 'white' }}>
             {userInfo.user}
           </Typography>

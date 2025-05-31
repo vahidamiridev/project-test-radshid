@@ -2,12 +2,11 @@ import { Box, List, ListItem, ListItemButton, ListItemText, Typography } from "@
 import { useTranslation } from 'react-i18next';
 import useCarStore from '@/stores/useCarStore';
 
-
-
 const CarsListComponent = () => {
-
     const { t } = useTranslation('translation');
-    const { carsInfo, selectedCar, setSelectedCar } = useCarStore();
+    const { carsInfo, selectedCars, toggleCarSelection } = useCarStore();
+
+    const isSelected = (id) => selectedCars.some(c => c.id === id);
 
     return (
         <Box sx={{
@@ -16,16 +15,16 @@ const CarsListComponent = () => {
                 xs: 'scale(0.7)',
                 sm: 'scale(1)',
             },
-
         }}>
-
-            <List subheader={
-                <Typography align="center" variant="h6" sx={{ my: 1 }}>
-                    {t('drawer.myVehicles')}
-                </Typography>
-            }>
+            <List
+                subheader={
+                    <Typography align="center" variant="h6" sx={{ my: 1 }}>
+                        {t('drawer.myVehicles')}
+                    </Typography>
+                }
+            >
                 {carsInfo.map((item) => (
-                    <ListItem disablePadding key={item.id} selected={selectedCar?.id === item.id}>
+                    <ListItem disablePadding key={item.id}>
                         <ListItemButton
                             sx={{
                                 '&.Mui-selected': {
@@ -35,10 +34,9 @@ const CarsListComponent = () => {
                                         backgroundColor: '#2b76d0cc',
                                     },
                                 },
-
                             }}
-                            onClick={() => setSelectedCar(item)}
-                            selected={selectedCar?.id === item.id}
+                            onClick={() => toggleCarSelection(item)}
+                            selected={isSelected(item.id)}
                         >
                             <ListItemText primary={item.title} />
                         </ListItemButton>
@@ -46,7 +44,6 @@ const CarsListComponent = () => {
                 ))}
             </List>
         </Box>
-
     )
 }
-export default CarsListComponent
+export default CarsListComponent;

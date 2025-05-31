@@ -1,20 +1,29 @@
-'use client'
+'use client';
 import { Box, Drawer, Divider, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import useLanguageStore from '@/stores/useLanguageStore';
 import useMenusStore from '@/stores/useMenusStore';
 
-
 const DrawerComponent = () => {
-  const { lang, dir } = useLanguageStore();
-  const { isDrawerOpen, closeDrawer } = useMenusStore()
+  const [settings, setSettings] = useState({
+    lang: 'fa',
+    dir: 'rtl',
+  });
 
+  const { isDrawerOpen, closeDrawer } = useMenusStore();
   const { t } = useTranslation('translation');
   const pathname = usePathname();
   const drawerWidth = 240;
   const appBarHeight = 64;
+
+  useEffect(() => {
+    const storedSettings = JSON.parse(localStorage.getItem('settings') || '{}');
+    if (storedSettings.lang && storedSettings.dir) {
+      setSettings(storedSettings);
+    }
+  }, []);
 
   const menuItems = [
     { id: 1, text: t('drawer.dashboard'), link: '/dashboard' },
@@ -24,18 +33,16 @@ const DrawerComponent = () => {
 
   return (
     <Drawer
-      key={lang}
+      key={settings.lang}
       variant="temporary"
-      anchor={lang === 'fa' ? 'left' : 'right'}
+      anchor={settings.lang === 'fa' ? 'left' : 'right'}
       open={isDrawerOpen}
       SlideProps={{
-        direction: lang === 'fa' ? 'left' : 'right',
+        direction: settings.lang === 'fa' ? 'left' : 'right',
       }}
       ModalProps={{
         keepMounted: true,
-
       }}
-
       sx={{
         '& .MuiDrawer-paper': {
           width: drawerWidth,
@@ -45,7 +52,7 @@ const DrawerComponent = () => {
         },
       }}
     >
-      <Box sx={{ p: 2 }} >
+      <Box sx={{ p: 2 }}>
         <List>
           {menuItems.map((item) => (
             <Link href={item.link} key={item.id} passHref style={{ textDecoration: 'none' }}>
@@ -65,7 +72,7 @@ const DrawerComponent = () => {
                 >
                   <ListItemText
                     primary={item.text}
-                    sx={{ textAlign: dir === 'rtl' ? 'left' : 'right' }}
+                    sx={{ textAlign: settings.dir === 'rtl' ? 'left' : 'right' }}
                   />
                 </ListItemButton>
               </ListItem>
@@ -73,7 +80,6 @@ const DrawerComponent = () => {
           ))}
         </List>
         <Divider sx={{ my: 4 }} />
-
       </Box>
     </Drawer>
   );

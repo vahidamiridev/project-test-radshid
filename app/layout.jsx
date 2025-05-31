@@ -9,38 +9,44 @@ import CssBaseline from '@mui/material/CssBaseline';
 import createEmotionCache from '@/theme/createEmotionCache';
 import { AuthGuard } from '@/guards/AuthGuard';
 import FleetDashboardLayout from '@/components/FleetDashboardLayout';
-import useLanguageStore from '@/stores/useLanguageStore';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
+import i18n from '@/i18n/config';
 import 'react-toastify/dist/ReactToastify.css';
 
 const cacheRtl = createEmotionCache();
+
 export default function RootLayout({ children }) {
-  const { lang, dir } = useLanguageStore();
   const pathname = usePathname();
   const isPublicPage = pathname === '/' || pathname === '/login';
 
+  const [settings, setSettings] = useState({
+    lang: 'fa',
+    dir: 'rtl',
+  });
 
   useEffect(() => {
-    document.documentElement.lang = lang;
-    document.documentElement.dir = dir;
-  }, [lang, dir]);
+    const stored = JSON.parse(localStorage.getItem('settings')) || {
+      lang: 'fa',
+      dir: 'rtl',
+    };
+    setSettings(stored);
+    document.documentElement.lang = stored.lang;
+    document.documentElement.dir = stored.dir;
+      i18n.changeLanguage(stored.lang);
+  }, []);
 
-
-  const theme = useMemo(
-    () =>
-      createTheme({
-        direction: dir,
-        typography: {
-          fontFamily: "Vazir, IRANSans, Arial",
-        },
-      }),
-    [dir]
-  );
-
+  const theme = useMemo(() => {
+    return createTheme({
+      direction: settings.dir,
+      typography: {
+        fontFamily: "Vazir, IRANSans, Arial",
+      },
+    });
+  }, [settings.dir]);
 
   return (
-    <html suppressHydrationWarning>
+    <html suppressHydrationWarning lang={settings.lang} dir={settings.dir}>
       <body>
         <CacheProvider value={cacheRtl}>
           <ThemeProvider theme={theme}>
@@ -49,7 +55,7 @@ export default function RootLayout({ children }) {
               {isPublicPage ? (
                 children
               ) : (
-                <FleetDashboardLayout >
+                <FleetDashboardLayout>
                   {children}
                   <ToastContainer position="bottom-left" />
                 </FleetDashboardLayout>

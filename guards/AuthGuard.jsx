@@ -8,24 +8,26 @@ export const AuthGuard = ({ children }) => {
   const router = useRouter();
   const pathname = usePathname();
   const logout = useAuthStore((state) => state.logout);
-  const [isChecked, setIsChecked] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem('authToken');
+    const token = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
 
     if (!token && pathname !== '/login') {
       logout();
       router.replace('/login');
+      return;
     }
 
     if (token && (pathname === '/' || pathname === '/login')) {
       router.replace('/dashboard');
+      return;
     }
 
-    setIsChecked(true);
+    setIsLoading(false);
   }, [pathname]);
 
-  if (!isChecked) {
+  if (isLoading) {
     return (
       <Box
         display="flex"

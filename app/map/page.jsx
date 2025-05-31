@@ -11,12 +11,9 @@ const MapComponent = dynamic(() => import('@/components/MapComponent'), {
   ssr: false,
 })
 
-
 const MapPage = () => {
-
   const { t } = useTranslation("translation");
   const { carsInfo, loading, error, fetchCars } = useCarStore();
-
 
   useEffect(() => {
     if (!carsInfo || carsInfo.length === 0) {
@@ -37,12 +34,10 @@ const MapPage = () => {
     if (error) {
       return (
         <Box display="flex" flexDirection="column" alignItems="center" mt={10}>
-
           <Typography color="error" variant="h6" mt={10} textAlign="center">
             {t("carsPage.errorLoadingCars", { error })}
           </Typography>
         </Box>
-
       );
     }
 
@@ -54,18 +49,13 @@ const MapPage = () => {
             {t("carsPage.noCarsFound")}
           </Typography>
         </Box>
-
-
       );
     }
 
-
     return (
       <>
-
         <Box
           sx={{
-
             width: { xs: '100%', lg: '15%' },
             height: { xs: '30vh', lg: '100vh' },
             overflowY: 'auto',
@@ -84,9 +74,8 @@ const MapPage = () => {
           <MapComponent />
         </Box>
       </>
-
-    )
-  }
+    );
+  };
 
   return (
     <Box
@@ -99,7 +88,7 @@ const MapPage = () => {
     >
       {renderContent()}
     </Box>
-  )
+  );
+};
 
-}
-export default MapPage
+export default MapPage;
