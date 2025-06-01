@@ -23,38 +23,40 @@ const MapComponent = () => {
   });
 
   // ⬇️ گرفتن موقعیت خودرو از API هر ۵ ثانیه
-useEffect(() => {
-  if (!selectedCarAvlIds) return;
+// useEffect(() => {
+//   if (selectedCarAvlIds.length === 0) return;
 
-  const fetchInitialPosition = async () => {
-    try {
-      const { data } = await api.get('v2/points', {
-        params: {
-          avlIds: selectedCarAvlIds,
-          convertedToLocal: true,
-        },
-      });
+//   const fetchInitialPosition = async () => {
+//     try {
+//       const { data } = await api.get('v2/points', {
+//         params: {
+//           avlIds: selectedCarAvlIds.join(','),
+//           convertedToLocal: true,
+//         },
+//       });
+//       console.log("Fetched vehicle positions:", data);
+//       data.forEach((item) => {
+//         const avlId = `${item.avlId}`;
+//         const newPosition = [item.latitude, item.longitude];
 
-      const latitude = data[0]?.latitude;
-      const longitude = data[0]?.longitude;
+//         // اگر موقعیت جدید وجود ندارد یا متفاوت است، اضافه کن
+//         if (!vehiclePositions[avlId] || !vehiclePositions[avlId].some(pos => pos[0] === newPosition[0] && pos[1] === newPosition[1])) {
+//           addVehiclePosition(avlId, newPosition);
+//         }
+//       })
+//     }catch (error) {
+//       console.error("Error fetching vehicle position:", error);
+//       toast.error('خطا در دریافت موقعیت خودرو. لطفاً اتصال دستگاه را بررسی کنید.');
+//     }
+//   };
 
-      if (!latitude || !longitude) return;
+//   // ⬅️ این اجرا میشه بلافاصله بعد از انتخاب خودرو
+//   fetchInitialPosition();
 
-      const newPosition = [latitude, longitude];
-      addVehiclePosition(selectedCarAvlIds, newPosition);
-    } catch (error) {
-      console.error("Error fetching vehicle position:", error);
-      toast.error('خطا در دریافت موقعیت خودرو. لطفاً اتصال دستگاه را بررسی کنید.');
-    }
-  };
+//   const interval = setInterval(fetchInitialPosition, 5000);
 
-  // ⬅️ این اجرا میشه بلافاصله بعد از انتخاب خودرو
-  fetchInitialPosition();
-
-  const interval = setInterval(fetchInitialPosition, 5000);
-
-  return () => clearInterval(interval);
-}, [selectedCarAvlIds]);
+//   return () => clearInterval(interval);
+// }, [selectedCarAvlIds]);
 
 
   // ⬇️ گرفتن مسیرهای این خودرو (فقط مسیر خودرو انتخاب‌شده فعلی)

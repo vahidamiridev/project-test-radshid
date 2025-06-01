@@ -9,11 +9,15 @@ import {
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import useCarStore from "@/stores/useCarStore";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { toast } from "react-toastify";
 
 const CarsListComponent = () => {
+  const intervalRef = useRef(null);
   const { t } = useTranslation("translation");
   const {
+    vehiclePositions,
+    addVehiclePosition,
     carsInfo,
     selectedCars,
     toggleCarSelection,
@@ -26,8 +30,8 @@ const CarsListComponent = () => {
   const isSelected = (id) => selectedCars.some((c) => c.id === id);
 
   useEffect(() => {
-    console.log(selectedCars);
-    console.log(selectedCarAvlIds);
+    // console.log(selectedCars);
+    // console.log(selectedCarAvlIds);
 
     if (!carsInfo || carsInfo.length === 0) {
       console.log(carsInfo);
@@ -86,7 +90,46 @@ const CarsListComponent = () => {
                   },
                 },
               }}
-              onClick={() => toggleCarSelection(item)}
+              onClick={() => {
+                toggleCarSelection(item, (selectedCarAvlIds) => {
+                  if (selectedCarAvlIds.length === 0) return;
+                  const fetchInitialPosition = async () => {
+                    try {
+                      const { data } = await api.get("v2/points", {
+                        params: {
+                          avlIds: selectedCarAvlIds.join(","),
+                          convertedToLocal: true,
+                        },
+                      });
+                      console.log("Fetched vehicle positions:", data);
+                      data.forEach((item) => {
+                        const avlId = `${item.avlId}`;
+                        const newPosition = [item.latitude, item.longitude];
+                        // اگر موقعیت جدید وجود ندارد یا متفاوت است، اضافه کن
+                        if (
+                          !vehiclePositions[avlId] ||
+                          !vehiclePositions[avlId].some(
+                            (pos) =>
+                              pos[0] === newPosition[0] &&
+                              pos[1] === newPosition[1]
+                          )
+                        ) {
+                          addVehiclePosition(avlId, newPosition);
+                        }
+                      });
+                    } catch (error) {
+                      console.error("Error fetching vehicle position:", error);
+                      toast.error(
+                        "خطا در دریافت موقعیت خودرو. لطفاً اتصال دستگاه را بررسی کنید."
+                      );
+                    }
+                  };
+                  // ⬅️ این اجرا میشه بلافاصله بعد از انتخاب خودرو
+                  if (intervalRef.current) clearInterval(intervalRef.current);
+                  fetchInitialPosition();
+                  const interval = setInterval(fetchInitialPosition, 5000);
+                });
+              }}
               selected={isSelected(item.id)}
             >
               <ListItemText primary={item.title} />

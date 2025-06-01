@@ -9,7 +9,7 @@ const useCarStore = create((set, get) => ({
   loading: false,
   error: null,
 
-  toggleCarSelection: (car) => {
+  toggleCarSelection: (car, callback) => {
     const { selectedCars, selectedCarAvlIds, vehiclePositions } = get();
     const avlId = `${car.avlId}`;
     const alreadySelected = selectedCars.some((c) => c.id === car.id);
@@ -34,6 +34,7 @@ const useCarStore = create((set, get) => ({
         selectedCarAvlIds: [...selectedCarAvlIds, avlId],
       });
     }
+    if (callback) callback(get().selectedCarAvlIds);
   },
 
   addVehiclePosition: (avlId, newPosition) => {
