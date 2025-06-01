@@ -34,11 +34,13 @@ const useCarStore = create((set, get) => ({
         selectedCarAvlIds: [...selectedCarAvlIds, avlId],
       });
     }
-    if (callback) callback(get().selectedCarAvlIds);
+    console.log("string : " + get().selectedCarAvlIds.join(",")) //...........
+    if (callback) callback(get().selectedCarAvlIds)
   },
 
   addVehiclePosition: (avlId, newPosition) => {
     const positions = get().vehiclePositions[avlId] || [];
+
     const updated = [...positions, newPosition].slice(0, 4);
 
     set((state) => ({
@@ -47,7 +49,11 @@ const useCarStore = create((set, get) => ({
         [avlId]: updated,
       },
     }));
-  },
+
+    console.log(` vehiclePositions  ` ,  get().vehiclePositions);
+    console.log(`Updated vehiclePositions for ${avlId}:`, get().vehiclePositions[avlId]);
+  }
+  ,
 
   fetchCars: async () => {
     const cars = get().carsInfo;
