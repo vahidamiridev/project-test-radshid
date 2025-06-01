@@ -1,68 +1,83 @@
 'use client';
 import L from 'leaflet';
-import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Box } from '@mui/material';
 import useCarStore from '@/stores/useCarStore';
 import React, { useEffect, useState, useRef } from 'react';
 
-
 const MapMarkers = ({ vehiclePositions }) => {
   const _map = useMap();  
   const markersRef = useRef({});
   const polylinesRef = useRef({});
-    const [positions, setPositions] = useState(vehiclePositions); 
 
-useEffect(() => {
-  if (!_map) return;  // اطمینان از اینکه نقشه بارگذاری شده باشد
-
-  setPositions(vehiclePositions);  // بروزرسانی موقعیت‌ها
-
-  const currentCarKeys = Object.keys(vehiclePositions);
-
-  // حذف مارکرها و خطوط اضافی
-  Object.keys(markersRef.current).forEach((carKey) => {
-    if (!currentCarKeys.includes(carKey)) {
-      markersRef.current[carKey].forEach((marker) => {
-        marker.remove(); // حذف مارکر
-      });
-      polylinesRef.current[carKey].forEach((polyline) => {
-        polyline.remove(); // حذف خط
-      });
-      delete markersRef.current[carKey];
-      delete polylinesRef.current[carKey];
-    }
+  const customIcon = new L.Icon({
+    iconUrl: '/img/azar-on.png',
+    iconSize: [50, 50],
+    iconAnchor: [25, 25],
   });
 
-  // اضافه کردن مارکرها و خطوط جدید
-  currentCarKeys.forEach((carKey) => {
-    const currentPositions = vehiclePositions[carKey] || [];
+  useEffect(() => {
+    if (!_map) return;
 
-    if (!markersRef.current[carKey]) {
+    const currentCarKeys = Object.keys(vehiclePositions);
+
+    // حذف مارکرها و خطوط قدیمی برای خودروهایی که دیگر وجود ندارند
+    Object.keys(markersRef.current).forEach(function (carKey) {
+      if (!currentCarKeys.includes(carKey)) {
+        markersRef.current[carKey].forEach(function (marker) {
+          marker.remove();
+        });
+        polylinesRef.current[carKey].forEach(function (polyline) {
+          polyline.remove();
+        });
+        delete markersRef.current[carKey];
+        delete polylinesRef.current[carKey];
+      }
+    });
+
+    // رندر مجدد مارکرها و مسیرها
+    currentCarKeys.forEach(function (carKey) {
+      const currentPositions = vehiclePositions[carKey] || [];
+
+      // حذف قبلی‌ها
+      if (markersRef.current[carKey]) {
+        markersRef.current[carKey].forEach(function (marker) {
+          marker.remove(); // حذف مارکر قبلی
+        });
+        polylinesRef.current[carKey].forEach(function (polyline) {
+          polyline.remove(); // حذف خطوط قبلی
+        });
+      }
+
+      // برای خودرو جدید: ایجاد آرایه‌های جدید برای مارکرها و خطوط
       markersRef.current[carKey] = [];
       polylinesRef.current[carKey] = [];
 
-      currentPositions.forEach((position, index) => {
-        const marker = L.marker(position, { 
-          icon: new L.icon({ iconUrl: '/img/azar-on.png', iconSize: [50, 50] }) 
+      // افزودن مارکرها
+      currentPositions.forEach(function (position, index) {
+        const marker = L.marker(position, {
+          icon: customIcon,
         })
-        .addTo(_map)
-        .bindPopup(`موقعیت خودرو ${index + 1} - ${carKey}`);
+          .addTo(_map)
+          .bindPopup('موقعیت خودرو ' + (index + 1) + ' - ' + carKey);
         markersRef.current[carKey].push(marker);
       });
 
-      const lines = currentPositions.slice(0, -1).map((start, index) => {
-        const end = currentPositions[index + 1];
-        const polyline = L.polyline([start, end], { color: 'rgba(255, 0, 0, 0.5)', weight: 3 })
-          .addTo(_map);
+      // افزودن polyline بین نقاط
+      for (let i = 0; i < currentPositions.length - 1; i++) {
+        const start = currentPositions[i];
+        const end = currentPositions[i + 1];
+        const polyline = L.polyline([start, end], {
+          color: 'rgba(255, 0, 0, 0.5)',
+          weight: 3,
+        }).addTo(_map);
         polylinesRef.current[carKey].push(polyline);
-      });
-    }
-  });
-}, [vehiclePositions, _map]);  // به _map وابسته است
+      }
+    });
+  }, [vehiclePositions, _map]);
 
-
-  return null;  
+  return null;
 };
 
 const MapComponent = () => {
