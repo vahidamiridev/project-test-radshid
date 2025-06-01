@@ -51,7 +51,7 @@ const useCarStore = create((set, get) => ({
     }));
 
     console.log(` vehiclePositions  ` ,  get().vehiclePositions);
-    console.log(`Updated vehiclePositions for ${avlId}:`, get().vehiclePositions[avlId]);
+    // console.log(`Updated vehiclePositions for ${avlId}:`, get().vehiclePositions[avlId]);
   }
   ,
 

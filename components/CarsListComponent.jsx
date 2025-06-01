@@ -33,11 +33,12 @@ const CarsListComponent = () => {
   const selectedCarAvlIds = useCarStore((state) => state.selectedCarAvlIds);
 
   useEffect(() => {
-    console.log("selectedCarAvlIds:", selectedCarAvlIds);  //....................
+    console.log("selectedCarAvlIds:", selectedCarAvlIds.join(","));  //....................
 
     if (!selectedCarAvlIds || selectedCarAvlIds.length === 0) return;
 
     const fetchInitialPosition = async () => {
+        console.log(selectedCarAvlIds.join(","))
       try {
         const { data } = await api.get("v2/points", {
           params: {
@@ -48,13 +49,11 @@ const CarsListComponent = () => {
         console.log(" response: ", data) //....................
 
         data.forEach((item) => {
-          console.log(item.avlID);      //............................
 
           const avlId = `${item.avlID}`;
           const newPosition = [item.latitude, item.longitude];
           const vehiclePositions = useCarStore.getState().vehiclePositions;
 
-          console.log(avlId);      //............................
 
           if (
             !vehiclePositions[avlId] ||
